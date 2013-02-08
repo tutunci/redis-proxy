@@ -5,6 +5,9 @@ var RedisProxy = require('./lib/redis_proxy');
 var logger = require('winston');
 
 var configFile = process.argv[2] || "config/config.json";
+logger.add(logger.transports.File, {filename: config.log_path+config.log_file,timestamp:true,json:false});
+logger.remove(logger.transports.Console);
+
 logger.info('using '+ configFile + ' as configuration source');
 var config = JSON.parse(fs.readFileSync(configFile));
 var redis_proxy = new RedisProxy(config);
